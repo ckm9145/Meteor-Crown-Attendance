@@ -26,6 +26,8 @@ export const MicrobitTalker = ({act}) => {
 	const [dataField, setDataField] = useState('');
 	const [pageField, setPageField] = useState('');
 	const [logging, setLogging] = React.useState(false);
+	const [isTestingMode, setIsTestingMode] = useState(true); 
+
 
 	const stateRef = useRef();
 	stateRef.current=pageField;
@@ -241,63 +243,78 @@ export const MicrobitTalker = ({act}) => {
 	  };
 
 
-	return (
+	  return (
+		<Box display="flex" flexDirection="column" justifyContent="center" alignItems="flex-start" p={2}>
+		  {/* Toggle Button to switch views */}
+		  <Button
+			variant="outlined"
+			onClick={() => setIsTestingMode(!isTestingMode)}
+			sx={{ margin: 1, padding: '8px 16px', alignSelf: 'flex-start' }} // Align button to the left
+		  >
+			{isTestingMode ? 'User' : 'Testing'}
+		  </Button>
 	
-	<Box display="flex" justifyContent="center" alignItems="center" >
-	{/* <StyledContainer container item direction="column" spacing={2} md={10} justifyContent="center" alignItems="center"> */}
-	  <Grid item>
-	  </Grid>
-	  <Grid container item direction="row" spacing={2} alignItems="center" justifyContent="center">
-		<Grid item>
-		  <Button variant="contained" onClick={connectBit}>
-			Connect
-		  </Button>
-		</Grid>
-		<Grid item>
-		<TextField
-			id="microbitDataField"
-			label="Property"
-			variant="filled"
-			value={pageField}
-			onChange={pageFieldChange}
-			InputProps={{
-				spellCheck: false,
-			}}
-			/>
-		</Grid>
-		<Grid item>
-							<TextField 
-							id="manualDataValue" 
-							label="Value" 
-							variant="filled" 
-							value= {dataField}
-				      onChange= {handleValueChange}
-						/>
-		</Grid>
-		<Grid item>
-		  <Button variant="contained" onClick={postData}>
-			Post Data
-		  </Button>
-		</Grid>
-		<Grid item>
-		  <FormControlLabel
-			control={<Switch checked={logging} onChange={toggleLogging} />}
-			label={
-			  <Typography variant="body1" color="primary.main">
-				Toggle Logging
-			  </Typography>
-			}
-		  />
-		</Grid>
-		<Grid item>
-		  <Tooltip title={getInstructions(act)}>
-			<HelpOutlineIcon color="primary.main" />
-		  </Tooltip>
-		</Grid>
-	  </Grid>
-	{/* </StyledContainer> */}
-  </Box>
-	)
+		  {/* Conditionally render the testing components */}
+		  {isTestingMode && (
+			<Grid container item direction="row" spacing={2} alignItems="center" justifyContent="center">
+			  <Grid item>
+				<Button
+				  variant="contained"
+				  onClick={connectBit}
+				  sx={{ margin: 1, padding: '8px 16px' }} // Adding margin and padding
+				>
+				  Connect
+				</Button>
+			  </Grid>
+			  <Grid item>
+				<TextField
+				  id="microbitDataField"
+				  label="Property"
+				  variant="filled"
+				  value={pageField}
+				  onChange={pageFieldChange}
+				  InputProps={{
+					spellCheck: false,
+				  }}
+				/>
+			  </Grid>
+			  <Grid item>
+				<TextField
+				  id="manualDataValue"
+				  label="Value"
+				  variant="filled"
+				  value={dataField}
+				  onChange={handleValueChange}
+				/>
+			  </Grid>
+			  <Grid item>
+				<Button
+				  variant="contained"
+				  onClick={postData}
+				  sx={{ margin: 1, padding: '8px 16px' }} // Adding margin and padding
+				>
+				  Post Data
+				</Button>
+			  </Grid>
+			  <Grid item>
+				<FormControlLabel
+				  control={<Switch checked={logging} onChange={toggleLogging} />}
+				  label={
+					<Typography variant="body1" color="primary.main">
+					  Toggle Logging
+					</Typography>
+				  }
+				/>
+			  </Grid>
+			  <Grid item>
+				<Tooltip title={getInstructions()}>
+				  <HelpOutlineIcon color="primary.main" />
+				</Tooltip>
+			  </Grid>
+			</Grid>
+		  )}
+		</Box>
+	  );
 }
 
 export default MicrobitTalker

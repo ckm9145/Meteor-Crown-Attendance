@@ -43,56 +43,119 @@ export const ScannerComp = ({spotUser}) => {
 		spotUser({});
 	}
 
-	return (
-    <Grid 
-      container 
-      spacing={.5} 
-      justifyContent="center" 
-      alignItems="center" 
-      style={{ paddingTop: '20px' }}
+
+  // item xs={12} md={6}
+	// return (
+  //   <Box 
+  //     sx={{ 
+  //       p: 2, 
+  //       m: 2,
+  //       border: '1px solid black',
+  //       display: 'flex',
+  //       justifyContent: 'center',
+  //       alignItems: 'center'
+  //     }}
+  //   >
+  //     <Grid container spacing={2} justifyContent="center" alignItems="center">
+
+  //       <Grid  sx={{ margin:1 }}>
+  //         <BarcodeScannerComponent
+  //           onUpdate={(err, result) => {
+  //             if (result) {
+  //               setCamData(result.text);
+  //               checkBarcode(result.text);
+  //             } else {
+  //               setCamData("Not Found");
+  //             }
+  //           }}
+  //         />
+  //       </Grid>
+
+  //       <Grid >
+  //         <Box 
+  //           sx={{ 
+  //             display: 'flex', 
+  //             flexDirection: 'column', 
+  //             alignItems: 'center', 
+  //             gap: 2 
+  //           }}
+  //         >
+  //           <Box sx={{ p: 1 }}>
+  //             <Typography variant="h5">
+  //               Name: {codeVisitor.name}
+  //             </Typography>
+  //           </Box>
+
+  //           <Box sx={{  p: 1 }}>
+  //             <Typography variant="h5">
+  //               Barcode: {codeVisitor.barcodeId}
+  //             </Typography>
+  //           </Box>
+
+  //           <Box sx={{  p: 1 }}>
+  //             <Button 
+  //               id="clearUser" 
+  //               onClick={clearUser} 
+  //               variant="contained" 
+  //               sx={{ width: '150px', height: '50px', fontSize: '1.2rem' }}
+  //             >
+  //               Clear
+  //             </Button>
+  //           </Box>
+  //         </Box>
+  //       </Grid>
+  //     </Grid>
+  //   </Box>
+  // );
+
+  return (
+    <Box 
+      sx={{ 
+        p: 1, // Reduce padding
+        ml: 1, // Remove margin to eliminate extra white space
+        
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        gap: 1, // Less space between items
+        // width: 'fit-content', // Adjust width to fit content
+        // height: 'fit-content' // Adjust height to fit content
+      }}
     >
-      <Grid item xs={12} md={10} lg={8}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            <BarcodeScannerComponent
-              onUpdate={(err, result) => {
-                if (result) {
-                  setCamData(result.text);
-                  checkBarcode(result.text);
-                } else {
-                  setCamData("Not Found");
-                }
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Grid container direction="column" spacing={2} alignItems="center">
-              <Grid item>
-                <Typography variant="h5">
-                  Name: {codeVisitor.name}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="h5">
-                  Barcode: {codeVisitor.barcodeId}
-                </Typography>
-              </Grid>
-              <Grid item>
-                {/* <Button 
-                  id="clearUser" 
-                  onClick={clearUser} 
-                  variant="contained" 
-                  style={{ width: '150px', height: '50px', fontSize: '1.2rem' }}
-                >
-                  Clear
-                </Button> */}
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+      <BarcodeScannerComponent
+        width={250}  // Smaller width for the scanner
+        height={250} // Smaller height for the scanner
+        onUpdate={(err, result) => {
+          if (result) {
+            setCamData(result.text);
+            checkBarcode(result.text);
+          } else {
+            setCamData("Not Found");
+          }
+        }}
+      />
+  
+      <Typography variant="h6" sx={{ mt: 1 }}>
+        Name: {codeVisitor.name}
+      </Typography>
+  
+      <Typography variant="h6" sx={{ mb: 1 }}>
+        Barcode: {codeVisitor.barcodeId}
+      </Typography>
+  
+      <Button 
+        id="clearUser" 
+        onClick={clearUser} 
+        variant="contained" 
+        sx={{ width: '120px', height: '40px', fontSize: '1rem' }}
+      >
+        Clear
+      </Button>
+    </Box>
   );
+  
+  
 }
 
 export default ScannerComp

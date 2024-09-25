@@ -19,9 +19,14 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
     padding: theme.spacing(2),
   },
   '& .MuiDataGrid-root': {
+    width: '100%', // Ensure DataGrid uses full width of the parent container
+    maxWidth: '100%', // Make sure it’s responsive
     margin: '0 auto', // Center the DataGrid horizontally
+    boxSizing: 'border-box', // Include padding within the width
   },
 }));
+
+
 
 const ScoreboardClock = ({ rows, columns }) => {
   return (
@@ -38,3 +43,5 @@ const ScoreboardClock = ({ rows, columns }) => {
 };
 
 export default ScoreboardClock;
+
+
